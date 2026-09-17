@@ -160,7 +160,7 @@ function App() {
   
   const fadeGradient = `linear-gradient(to bottom, transparent 0%, var(--bg-color) ${stop1}%, var(--bg-color) ${stop2}%, transparent 100%)`;
 
-  const isLogicalVertical = orientation % 180 === 0;
+  const isLogicalVertical = orientation % 180 === 0 ? !isLandscape : isLandscape;
   const defaultBg = isLogicalVertical ? '/bg_vertical.jpg' : '/bg_horizontal.jpg';
 
   return (
@@ -174,12 +174,13 @@ function App() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: isLogicalVertical ? '100vh' : '100vw',
-          width: isLogicalVertical ? '100vw' : '100vh',
+          height: orientation % 180 === 0 ? '100vh' : '100vw',
+          width: orientation % 180 === 0 ? '100vw' : '100vh',
           transform: `rotate(${orientation}deg)`,
           transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
           padding: '40px 0',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          flexShrink: 0
         }}
       >
         {bgImageEnabled && (
