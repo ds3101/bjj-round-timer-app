@@ -158,42 +158,14 @@ function App() {
   const stop1 = Math.max(0, 50 - solidWidthPercent);
   const stop2 = Math.min(100, 50 + solidWidthPercent);
   
-  const fadeGradient = isLandscape
-    ? `linear-gradient(to right, transparent 0%, var(--bg-color) ${stop1}%, var(--bg-color) ${stop2}%, transparent 100%)`
-    : `linear-gradient(to bottom, transparent 0%, var(--bg-color) ${stop1}%, var(--bg-color) ${stop2}%, transparent 100%)`;
+  const fadeGradient = `linear-gradient(to bottom, transparent 0%, var(--bg-color) ${stop1}%, var(--bg-color) ${stop2}%, transparent 100%)`;
+
+  const isLogicalVertical = orientation % 180 === 0;
+  const defaultBg = isLogicalVertical ? '/bg_vertical.jpg' : '/bg_horizontal.jpg';
 
   return (
     <div className="app-container" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw', overflow: 'hidden' }}>
       
-      {bgImageEnabled && (
-        <>
-          <div 
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundImage: `url(${bgImageUrl || '/default_bg.jpg'})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              zIndex: 0
-            }}
-          />
-          <div 
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              background: fadeGradient,
-              zIndex: 1
-            }}
-          />
-        </>
-      )}
-
       <div 
         style={{
           position: 'relative',
@@ -202,14 +174,43 @@ function App() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: orientation % 180 === 0 ? '100vh' : '100vw',
-          width: orientation % 180 === 0 ? '100vw' : '100vh',
+          height: isLogicalVertical ? '100vh' : '100vw',
+          width: isLogicalVertical ? '100vw' : '100vh',
           transform: `rotate(${orientation}deg)`,
           transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
           padding: '40px 0',
           boxSizing: 'border-box'
         }}
       >
+        {bgImageEnabled && (
+          <>
+            <div 
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundImage: `url(${bgImageUrl || defaultBg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: -2,
+                transition: 'background-image 0.5s ease'
+              }}
+            />
+            <div 
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                background: fadeGradient,
+                zIndex: -1
+              }}
+            />
+          </>
+        )}
         {/* Top: Preset Name */}
         <div style={{ height: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', zIndex: 10 }}>
           <span style={{ color: 'var(--text-color)', opacity: 0.5, letterSpacing: '4px', fontSize: '1rem', fontWeight: 600 }}>

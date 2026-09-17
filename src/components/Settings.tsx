@@ -463,7 +463,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       }}
                     />
                   </label>
-                  {(bgImageUrl !== null && bgImageUrl !== '/default_bg.jpg') && (
+                  {(bgImageUrl !== null) && (
                     <button 
                       onClick={() => onChangeBgImageUrl(null)}
                       style={{ padding: '12px', background: 'var(--panel-bg)', border: '1px solid var(--panel-border)', borderRadius: '8px', color: '#ff4444' }}
