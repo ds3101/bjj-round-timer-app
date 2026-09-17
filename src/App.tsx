@@ -4,6 +4,7 @@ import { useTimer } from './hooks/useTimer';
 import { TimerDisplay } from './components/TimerDisplay';
 import { Controls } from './components/Controls';
 import { Settings } from './components/Settings';
+import { BuyMeCoffee } from './components/BuyMeCoffee';
 
 function App() {
   const [savedConfigs, setSavedConfigs] = useState<TimerConfig[]>(() => {
@@ -161,11 +162,13 @@ function App() {
   const fadeGradient = `linear-gradient(to bottom, transparent 0%, var(--bg-color) ${stop1}%, var(--bg-color) ${stop2}%, transparent 100%)`;
 
   const isLogicalVertical = orientation % 180 === 0 ? !isLandscape : isLandscape;
-  const defaultBg = isLogicalVertical ? '/bg_vertical.jpg' : '/bg_horizontal.jpg';
+  const defaultBg = isLogicalVertical ? './bg_vertical.jpg' : './bg_horizontal.jpg';
 
   return (
     <div className="app-container" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw', overflow: 'hidden' }}>
       
+      <BuyMeCoffee />
+
       <div 
         style={{
           position: 'relative',
